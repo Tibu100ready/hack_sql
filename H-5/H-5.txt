@@ -1,0 +1,103 @@
+create table roles (
+id_role serial primary key,
+name varchar(50) not null 
+);
+ 
+create table taxes (
+id_tax serial primary key,
+percentage INTEGER not NULL
+);
+ 
+create table offers (
+id_offer serial primary key,
+status varchar(50) not null
+);
+ 
+create table DISCOUNTS (
+id_discount serial primary key,
+status varchar(50) not null,
+percentage INTEGER not null 
+);
+ 
+create table payments (
+id_payment serial primary key,
+type varchar(40) not null 
+);
+ 
+create table invoice_status (
+id_invoice_status serial primary key,
+status varchar(100) not null 
+);
+ 
+create table customers (
+id_customer serial primary key,
+email varchar(40) not null, 
+id_country integer not null,
+id_role integer not null, 
+name varchar(50) not null,
+age INTEGER not null,
+password varchar(40) not null,
+physical_address varchar(50) not null
+);
+ 
+create table products ( 
+id_product serial primary key,
+id_discount integer not null,
+id_offer integer not null,
+id_tax integer not null,
+name varchar(50) not null,
+details varchar(50) not null ,
+minimum_stock INTEGER not null,
+maximum_stock INTEGER not null,
+current_stock INTEGER not null,
+price INTEGER not null,
+price_with_tax INTEGER not null,
+ 
+foreign key (id_discount) references DISCOUNTS (id_discount),
+foreign key (id_offer) references offers (id_offer),
+foreign key (id_tax) references taxes (id_tax)
+);
+ 
+create table product_customer (
+id_customer integer not null,
+id_product integer not null,
+
+foreign key (id_product) references products (id_product),
+foreign key (id_customer) references customers (id_customer)
+);
+
+create table invoices (
+id_invoice serial primary key,
+id_customer integer not null,
+id_payment integer not null,
+id_invoice_status integer not null,
+date date not null,
+total_to_pay integer not null,
+
+foreign key ( id_customer) references customers (id_customer),
+foreign key ( id_payment) references payments (id_payment),
+foreign key (id_invoice_status) references invoice_status(id_invoice_status));
+
+create table orders ( 
+id_order serial primary key,
+id_invoice integer not null,
+id_product integer not null,
+detail varchar(50) not null,
+amount integer not null,
+price integer not null,
+
+foreign key (id_invoice) references invoices(id_invoice),
+foreign key ( id_product) references products(id_product)
+);
+
+select * from countries;
+select * from roles;
+select * from taxes;
+select * from offers;
+select * from DISCOUNTS;
+select * from payments;
+select * from invoice_status;
+select * from customers;
+select *  from products;
+select * from product_customer;
+select * from invoices;

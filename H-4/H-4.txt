@@ -1,0 +1,15 @@
+insert into countries (name) values ('venezuela'),('china'),('india'),('cuba'),('mexico');
+  
+insert into priorities (type_name) values ('trabajar'),('cocinar'),('estudiar');
+
+insert into contact_request (name, detail, physical_address) values ('Peter Jones','Mesonero','calle 5'),
+('James McGuire','Panadero','calle 3'),('Toby Cobb','Chef','calle 2');
+
+SELECT * FROM contact_request;
+
+DELETE FROM contact_request
+WHERE id_email = (SELECT MAX(id_email) FROM contact_request);
+
+UPDATE contact_request
+SET name = 'Peter Parker'
+WHERE id_email = (SELECT MIN(id_email) FROM contact_request);

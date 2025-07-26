@@ -1,0 +1,19 @@
+create table priorities(
+  id_priority serial primary key,
+  type_name varchar(50) not null  
+);
+
+create table contact_request(
+  id_email serial primary key,
+  id_country INTEGER NOT NULL,
+  id_priority INTEGER NOT NULL,
+  name varchar(50) not null,
+  DETAIL varchar(50) not null,
+  physical_address VARCHAR (50) not null
+);
+
+select u.id_email as id
+  from contact_request u inner join countries c on u.id_country = c.id_country;
+  
+select u.id_email as id
+  from contact_request u inner join priorities c on u.id_priority = c.id_priority;
